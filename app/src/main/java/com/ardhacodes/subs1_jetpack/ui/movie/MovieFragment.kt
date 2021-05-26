@@ -15,6 +15,7 @@ import com.ardhacodes.subs1_jetpack.ui.CallbackMovTv
 import com.ardhacodes.subs1_jetpack.ui.detail.DetailMovieTvActivity
 import com.ardhacodes.subs1_jetpack.utils.Helper.EXTRA_MOVIE
 import com.ardhacodes.subs1_jetpack.utils.MoviesTvDataDummy
+import com.ardhacodes.subs1_jetpack.viewmodel.ViewModelFactory
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,9 +32,6 @@ class MovieFragment : Fragment(), CallbackMovTv {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         if (activity != null) {
-//            val movie = MoviesTvDataDummy.DataMovies()
-//            val movieAdapter = MovieAdapter()
-//            movieAdapter.setMovies(movie)
             viewModelProviderConfig()
 
         }
@@ -50,17 +48,27 @@ class MovieFragment : Fragment(), CallbackMovTv {
 
     override fun onItemClicked(movtvEntity: MovieTvEntity) {
         startActivity(Intent(context, DetailMovieTvActivity::class.java)
-                .putExtra(DetailMovieTvActivity.EXTRA_MOV, movtvEntity.title)
+//                .putExtra(DetailMovieTvActivity.EXTRA_MOV, movtvEntity.title)
+                .putExtra(DetailMovieTvActivity.EXTRA_MOV, movtvEntity.id)
                 .putExtra(DetailMovieTvActivity.EXTRA_CATEGORY, EXTRA_MOVIE)
         )
     }
 
     fun viewModelProviderConfig()
     {
-        val viewmodel =ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[MovieViewModel::class.java]
-        val movie = viewmodel.getdDataMovie()
+        val factory = ViewModelFactory.getInstance()
+        val viewmodel =ViewModelProvider(this, factory)[MovieViewModel::class.java]
+//        val movie = viewmodel.getdDataMovie()
         val movieAdapter = MovieAdapter(this)
-        movieAdapter.setMovies(movie)
+//        movieAdapter.setMovies(movie)
+
+        fragmentMovieBind.progressBar.visibility = View.VISIBLE
+        viewmodel.getDataMovieApi().observe(viewLifecycleOwner, {
+            movie->
+            fragmentMovieBind.progressBar.visibility = View.GONE
+            movieAdapter.setMovies(movie)
+            movieAdapter.notifyDataSetChanged()
+        })
 
         with(fragmentMovieBind.rvMovie) {
             layoutManager = LinearLayoutManager(context)

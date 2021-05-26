@@ -18,6 +18,7 @@ import com.ardhacodes.subs1_jetpack.ui.movie.MovieAdapter
 import com.ardhacodes.subs1_jetpack.ui.movie.MovieViewModel
 import com.ardhacodes.subs1_jetpack.utils.Helper
 import com.ardhacodes.subs1_jetpack.utils.MoviesTvDataDummy
+import com.ardhacodes.subs1_jetpack.viewmodel.ViewModelFactory
 
 
 class TvFragment : Fragment(), CallbackMovTv {
@@ -41,10 +42,18 @@ class TvFragment : Fragment(), CallbackMovTv {
     }
 
     private fun viewModelProviderConfig() {
-        val viewmodel =ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[TvViewModel::class.java]
-        val tv = viewmodel.getdDataTv()
-        val tvadaper = TvAdapter(this)
-        tvadaper.setTv(tv)
+        val factory = ViewModelFactory.getInstance()
+        val viewmodel =ViewModelProvider(this, factory)[TvViewModel::class.java]
+//        val viewmodel =ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[TvViewModel::class.java]
+        val tvadaper = TvAdapter(this@TvFragment)
+//        val tv = viewmodel.getdDataTv()
+//        tvadaper.setTv(tv)
+        fragmentTvBinding.progressBar.visibility = View.VISIBLE
+        viewmodel.getDataTvAPI().observe(viewLifecycleOwner, { series ->
+            fragmentTvBinding.progressBar.visibility = View.GONE
+            tvadaper.setTv(series)
+            tvadaper.notifyDataSetChanged()
+        })
 
         with(fragmentTvBinding.rvTv) {
             layoutManager = LinearLayoutManager(context)
@@ -56,7 +65,8 @@ class TvFragment : Fragment(), CallbackMovTv {
     override fun onItemClicked(movtvEntity: MovieTvEntity) {
         startActivity(
             Intent(context, DetailMovieTvActivity::class.java)
-            .putExtra(DetailMovieTvActivity.EXTRA_MOV, movtvEntity.title)
+//            .putExtra(DetailMovieTvActivity.EXTRA_MOV, movtvEntity.title)
+            .putExtra(DetailMovieTvActivity.EXTRA_MOV, movtvEntity.id)
             .putExtra(DetailMovieTvActivity.EXTRA_CATEGORY, Helper.EXTRA_TV_SHOW)
         )
     }

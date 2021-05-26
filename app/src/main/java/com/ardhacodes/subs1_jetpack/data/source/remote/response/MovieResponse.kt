@@ -7,22 +7,22 @@ data class MovieResponse (
     var id: Int = 0,
 
     @SerializedName("title")
-    var title: String? = null,
+    var title: String,
 
     @SerializedName("release_date")
-    var release_date: String? = null,
+    var release_date: String,
 
     @SerializedName("popularity")
-    var popularity: String? = null,
+    var popularity: String,
 
     @SerializedName("overview")
-    var overview: String? = null,
+    var overview: String,
 
     @SerializedName("vote_average")
-    var vote_average: String? = null,
+    var vote_average: String,
 
     @SerializedName("poster_path")
-    var poster_path: String? = null,
+    var poster_path: String,
 
 
 )

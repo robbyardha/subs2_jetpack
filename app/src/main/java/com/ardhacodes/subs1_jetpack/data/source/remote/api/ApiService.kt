@@ -1,5 +1,6 @@
 package com.ardhacodes.subs1_jetpack.data.source.remote.api
 
+import com.ardhacodes.subs1_jetpack.data.source.remote.response.ForResponse
 import com.ardhacodes.subs1_jetpack.data.source.remote.response.MovieResponse
 import com.ardhacodes.subs1_jetpack.data.source.remote.response.TvResponse
 import retrofit2.Call
@@ -16,7 +17,7 @@ interface ApiService {
     @GET("movie/popular")
     fun getPopularMovie(
             @Query("api_key") apiKey: String = KEY
-    ): Call<Response<MovieResponse>>
+    ): Call<ForResponse<MovieResponse>>
 
     @GET("movie/{movie_id}")
     fun getDetailMovie(
@@ -27,7 +28,7 @@ interface ApiService {
     @GET("tv/popular")
     fun getTvPopular(
             @Query("api_key") apiKey: String = KEY
-    ): Call<Response<TvResponse>>
+    ): Call<ForResponse<TvResponse>>
 
     @GET("tv/{tv_id}")
     fun getDetailTvShow(

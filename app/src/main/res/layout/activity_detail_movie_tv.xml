@@ -79,17 +79,17 @@
         app:layout_constraintStart_toStartOf="@+id/cardView2"
         app:layout_constraintTop_toBottomOf="@+id/tv_year" />
 
-    <TextView
-        android:id="@+id/tv_duration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:fontFamily="@font/poppins_light"
-        android:text="duration"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/cardView2"
-        app:layout_constraintTop_toBottomOf="@+id/tv_score" />
+<!--    <TextView-->
+<!--        android:id="@+id/tv_duration"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:fontFamily="@font/poppins_light"-->
+<!--        android:text="duration"-->
+<!--        android:textSize="16dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/cardView2"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/tv_score" />-->
 
     <TextView
         android:id="@+id/tv_overview"
@@ -101,7 +101,8 @@
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/cardView2"
-        app:layout_constraintTop_toBottomOf="@+id/tv_duration" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_score" />
+<!--        app:layout_constraintTop_toBottomOf="@+id/tv_duration" -->
 
     <ProgressBar
         android:id="@+id/progress_bar"

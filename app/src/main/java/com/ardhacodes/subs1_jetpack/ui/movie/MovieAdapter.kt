@@ -14,6 +14,9 @@ import com.bumptech.glide.request.RequestOptions
 
 class MovieAdapter(val callback: CallbackMovTv) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     private var listMovie = ArrayList<MovieTvEntity>()
+    val path = "http://image.tmdb.org/t/p/"
+    val image_w185 = "w185"
+    val image_w780 = "w780"
 
     fun setMovies(movies: List<MovieTvEntity>){
         if(movies == null) return
@@ -42,20 +45,17 @@ class MovieAdapter(val callback: CallbackMovTv) : RecyclerView.Adapter<MovieAdap
         fun bind(movie: MovieTvEntity) {
             with(binding) {
                 itemTitle.text = movie.title
-                itemGenre.text = movie.genre
-                itemYearrelease.text = "Release : ${movie.yearrelease}"
-                itemScore.text = "Score: ${movie.score}"
+                itemGenre.text = "Release : ${movie.release_date}"
+                itemYearrelease.text = "Vote Average : ${movie.vote_average}"
+                itemScore.text = "Popularity : ${movie.popularity}"
 
-                itemView.setOnClickListener {
-//                    val intent = Intent(itemView.context, DetailMovieTvActivity::class.java)
-//                    intent.putExtra(DetailMovieTvActivity.EXTRA_MOV, movie.title)
-//                    itemView.context.startActivity(intent)
-                    callback.onItemClicked(movie)
-                }
                 Glide.with(itemView.context)
-                    .load(movie.poster)
+                    .load(path + image_w185 + movie.poster_path)
                     .apply(RequestOptions())
                     .into(ivPoster)
+            }
+            itemView.setOnClickListener {
+                callback.onItemClicked(movie)
             }
         }
     }
