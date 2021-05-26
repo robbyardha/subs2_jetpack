@@ -11,12 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Subs1_jetpack">
+        <activity android:name=".ui.main.MainActivity"></activity>
         <activity
             android:name=".ui.detail.DetailMovieTvActivity"
             android:label="@string/title_activity_detail_movie_tv"
-            android:theme="@style/Theme.Subs1_jetpack.NoActionBar"></activity>
-        <activity android:name=".read.ReaderMoviesTvActivity" />
-        <activity android:name=".ui.main.MainActivity">
+            android:theme="@style/Theme.Subs1_jetpack.NoActionBar" />
+<!--        <activity android:name=".read.ReaderMoviesTvActivity" />-->
+<!--        <activity android:name="">-->
+        <activity android:name=".ui.splashscreen.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
