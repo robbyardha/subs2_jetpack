@@ -13,8 +13,8 @@ class DummyCatalogRepository(private val remote: RemoteDataSource) : CatalogData
     override fun getPopularMovies(): LiveData<List<MovieTvEntity>> {
         val listMovRes = MutableLiveData<List<MovieTvEntity>>()
         CoroutineScope(Dispatchers.IO).launch {
-            remote.getPlayingMovies(object : RemoteDataSource.LoadNowPlayingMoviesCallback{
-                override fun onAllMoviesReceived(movieResponse: List<MovieResponse>) {
+            remote.getPlayingMovies(object : RemoteDataSource.LoadPopularMoviesCallback{
+                override fun responseOnAllMoviesReceived(movieResponse: List<MovieResponse>) {
                     val movieList = ArrayList<MovieTvEntity>()
                     for (response in movieResponse){
                         val movie = MovieTvEntity(
@@ -41,7 +41,7 @@ class DummyCatalogRepository(private val remote: RemoteDataSource) : CatalogData
         val movResultDetail = MutableLiveData<MovieTvEntity>()
         CoroutineScope(Dispatchers.IO).launch {
             remote.getMovieDetail(movieId, object : RemoteDataSource.LoadMovieDetailCallback{
-                override fun onMovieDetailReceived(movieResponse: MovieResponse) {
+                override fun responseOnDetailMoviesReceived(movieResponse: MovieResponse) {
                     val movie = MovieTvEntity(
                         movieResponse.id,
                         movieResponse.title,
@@ -58,12 +58,12 @@ class DummyCatalogRepository(private val remote: RemoteDataSource) : CatalogData
         return movResultDetail
     }
 
-    override fun getTvShow(): LiveData<List<MovieTvEntity>> {
+    override fun getTv(): LiveData<List<MovieTvEntity>> {
         val listTvRes = MutableLiveData<List<MovieTvEntity>>()
         CoroutineScope(Dispatchers.IO).launch {
-            remote.getTvShowList(object : RemoteDataSource.LoadTvShowCallback{
+            remote.getTvList(object : RemoteDataSource.LoadTvCallback{
 
-                override fun onAllTvShowsReceived(tvShowResponse: List<TvResponse>) {
+                override fun responseOnAllTvReceived(tvShowResponse: List<TvResponse>) {
                     val tvListArr = ArrayList<MovieTvEntity>()
                     for (response in tvShowResponse){
                         val tvRes = MovieTvEntity(
@@ -84,12 +84,12 @@ class DummyCatalogRepository(private val remote: RemoteDataSource) : CatalogData
         return listTvRes
     }
 
-    override fun getTvShowDetail(tvShowId: Int): LiveData<MovieTvEntity>
+    override fun getTvDetail(tvShowId: Int): LiveData<MovieTvEntity>
     {
         val tvResultDetail = MutableLiveData<MovieTvEntity>()
         CoroutineScope(Dispatchers.IO).launch {
-            remote.getTvShowDetail(tvShowId, object : RemoteDataSource.LoadTvShowDetailCallback{
-                override fun onTvShowDetailReceived(tvShowResponse: TvResponse) {
+            remote.getTvDetail(tvShowId, object : RemoteDataSource.LoadTvDetailCallback{
+                override fun responseOnDetailTvReceived(tvShowResponse: TvResponse) {
                     val tv = MovieTvEntity(
                         tvShowResponse.id,
                         tvShowResponse.title,
