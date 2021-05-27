@@ -7,7 +7,7 @@ import com.ardhacodes.subs1_jetpack.data.MovieTvEntity
 import com.ardhacodes.subs1_jetpack.utils.MoviesTvDataDummy
 
 class MovieViewModel(val catalogRepository: CatalogRepository) : ViewModel(){
-//    fun getdDataMovie () :List<MovieTvEntity> = MoviesTvDataDummy.DataMovies()
+    fun getdDataMovie () :List<MovieTvEntity> = MoviesTvDataDummy.DataMovies()
 
     fun getDataMovieApi () : LiveData<List<MovieTvEntity>> = catalogRepository.getPopularMovies()
 }
