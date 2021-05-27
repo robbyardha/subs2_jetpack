@@ -54,6 +54,6 @@ class DetailViewModel(val mCatalogRepository: CatalogRepository) : ViewModel() {
 
     fun getDetailTvapis(tvShowId: Int): LiveData<MovieTvEntity>
     {
-        return mCatalogRepository.getTvShowDetail(tvShowId)
+        return mCatalogRepository.getTvDetail(tvShowId)
     }
 }

@@ -1,5 +1,7 @@
 package com.ardhacodes.subs1_jetpack.ui.main
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.ardhacodes.subs1_jetpack.data.CatalogRepository
 import com.ardhacodes.subs1_jetpack.ui.detail.DetailViewModel
 import com.ardhacodes.subs1_jetpack.ui.movie.MovieViewModel
 import com.ardhacodes.subs1_jetpack.ui.tv.TvViewModel
@@ -7,7 +9,9 @@ import com.ardhacodes.subs1_jetpack.utils.MoviesTvDataDummy
 import junit.framework.TestCase
 import org.junit.Assert.*
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.mockito.Mock
 
 class MainActivityTest
 {
@@ -20,17 +24,23 @@ class MainActivityTest
     val movieId = dataMov.title
     val tvShowId = dataTv.title
 
+    @get:Rule
+    var instantTask = InstantTaskExecutorRule()
+
+    @Mock
+    private lateinit var catalogRepos: CatalogRepository
+
     @Before
     fun setData()
     {
-        viewmodelmov = MovieViewModel()
+        viewmodelmov = MovieViewModel(catalogRepos)
         viewmodelmov.getdDataMovie()
 
-        viewmodeltv = TvViewModel()
+        viewmodeltv = TvViewModel(catalogRepos)
         viewmodeltv.getdDataTv()
 
 
-        viewmodeldetail = DetailViewModel()
+        viewmodeldetail = DetailViewModel(catalogRepos)
         viewmodeldetail.setMovieById(movieId)
         viewmodeldetail.setTvShowById(tvShowId)
     }

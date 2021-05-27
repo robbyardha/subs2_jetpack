@@ -17,12 +17,12 @@ class RemoteDataSource {
     }
 
     suspend fun getPlayingMovies(
-            callback: LoadNowPlayingMoviesCallback
+            callback: LoadPopularMoviesCallback
     ){
         EspressoIdlingResource.increment()
 //        ApiConfig.instance.getPopularMovie().await().isSuccessful
         ApiConfig.instance.getPopularMovie().await().result?.let{ getlistMovie ->
-            callback.onAllMoviesReceived(
+            callback.responseOnAllMoviesReceived(
                     getlistMovie
             )
             EspressoIdlingResource.decrement()
@@ -32,17 +32,17 @@ class RemoteDataSource {
     suspend fun getMovieDetail(movieId: Int, callback: LoadMovieDetailCallback){
         EspressoIdlingResource.increment()
         ApiConfig.instance.getDetailMovie(movieId).await().let { getdetmovie ->
-            callback.onMovieDetailReceived(
+            callback.responseOnDetailMoviesReceived(
                     getdetmovie
             )
             EspressoIdlingResource.decrement()
         }
     }
 
-    suspend fun getTvShowList(callback: LoadTvShowCallback){
+    suspend fun getTvList(callback: LoadTvCallback){
         EspressoIdlingResource.increment()
         ApiConfig.instance.getTvPopular().await().result?.let { getlistTvShow ->
-            callback.onAllTvShowsReceived(
+            callback.responseOnAllTvReceived(
                     getlistTvShow
             )
             EspressoIdlingResource.decrement()
@@ -50,10 +50,10 @@ class RemoteDataSource {
     }
 
 
-    suspend fun getTvShowDetail(tvShowId: Int, callback: LoadTvShowDetailCallback){
+    suspend fun getTvDetail(tvShowId: Int, callback: LoadTvDetailCallback){
         EspressoIdlingResource.increment()
         ApiConfig.instance.getDetailTvShow(tvShowId).await().let{ getdettvShow ->
-            callback.onTvShowDetailReceived(
+            callback.responseOnDetailTvReceived(
                     getdettvShow
             )
             EspressoIdlingResource.decrement()
@@ -64,20 +64,20 @@ class RemoteDataSource {
 
 
 
-    interface LoadNowPlayingMoviesCallback{
-        fun onAllMoviesReceived(movieResponse: List<MovieResponse>)
+    interface LoadPopularMoviesCallback{
+        fun responseOnAllMoviesReceived(movieResponse: List<MovieResponse>)
     }
 
     interface LoadMovieDetailCallback{
-        fun onMovieDetailReceived(movieResponse: MovieResponse)
+        fun responseOnDetailMoviesReceived(movieResponse: MovieResponse)
     }
 
 
-    interface LoadTvShowCallback{
-        fun onAllTvShowsReceived(tvShowResponse: List<TvResponse>)
+    interface LoadTvCallback{
+        fun responseOnAllTvReceived(tvShowResponse: List<TvResponse>)
     }
 
-    interface LoadTvShowDetailCallback{
-        fun onTvShowDetailReceived(tvShowResponse: TvResponse)
+    interface LoadTvDetailCallback{
+        fun responseOnDetailTvReceived(tvShowResponse: TvResponse)
     }
 }

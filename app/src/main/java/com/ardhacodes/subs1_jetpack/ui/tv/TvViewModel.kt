@@ -11,6 +11,6 @@ class TvViewModel(val catalogRepository: CatalogRepository):ViewModel() {
 
     fun getDataTvAPI() : LiveData<List<MovieTvEntity>>
     {
-       return catalogRepository.getTvShow()
+       return catalogRepository.getTv()
     }
 }
