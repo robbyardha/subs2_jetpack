@@ -9,24 +9,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class CatalogRepository private constructor(private val remoteDataSource: RemoteDataSource): CatalogDataSource{
-    companion object{
-        @Volatile
-        private var instance: CatalogRepository? = null
-
-        fun getInstance(remoteDataSource: RemoteDataSource): CatalogRepository =
-            instance ?: synchronized(this){
-                instance ?: CatalogRepository(remoteDataSource)
-            }
-    }
-
+class DummyMovTvRepository(private val remote: RemoteDataSource) : MovTvDataSource {
     override fun getPopularMovies(): LiveData<List<MovieTvEntity>> {
-        val listMovieResult = MutableLiveData<List<MovieTvEntity>>()
+        val listMovRes = MutableLiveData<List<MovieTvEntity>>()
         CoroutineScope(Dispatchers.IO).launch {
-            remoteDataSource.getPlayingMovies(object : RemoteDataSource.LoadPopularMoviesCallback {
+            remote.getPlayingMovies(object : RemoteDataSource.LoadPopularMoviesCallback{
                 override fun responseOnAllMoviesReceived(movieResponse: List<MovieResponse>) {
                     val movieList = ArrayList<MovieTvEntity>()
-                    for(response in movieResponse){
+                    for (response in movieResponse){
                         val movie = MovieTvEntity(
                             response.id,
                             response.title,
@@ -36,21 +26,21 @@ class CatalogRepository private constructor(private val remoteDataSource: Remote
                             response.vote_average,
                             response.poster_path
                         )
+
                         movieList.add(movie)
                     }
-                    listMovieResult.postValue(movieList)
+                    listMovRes.postValue(movieList)
                 }
-
             })
         }
-
-        return listMovieResult
+        return listMovRes
     }
 
-    override fun getMovieDetail(movieId: Int): LiveData<MovieTvEntity> {
-        val movResult = MutableLiveData<MovieTvEntity>()
+    override fun getMovieDetail(movieId: Int): LiveData<MovieTvEntity>
+    {
+        val movResultDetail = MutableLiveData<MovieTvEntity>()
         CoroutineScope(Dispatchers.IO).launch {
-            remoteDataSource.getMovieDetail(movieId, object: RemoteDataSource.LoadMovieDetailCallback{
+            remote.getMovieDetail(movieId, object : RemoteDataSource.LoadMovieDetailCallback{
                 override fun responseOnDetailMoviesReceived(movieResponse: MovieResponse) {
                     val movie = MovieTvEntity(
                         movieResponse.id,
@@ -61,21 +51,22 @@ class CatalogRepository private constructor(private val remoteDataSource: Remote
                         movieResponse.vote_average,
                         movieResponse.poster_path
                     )
-                    movResult.postValue(movie)
+                    movResultDetail.postValue(movie)
                 }
             })
         }
-        return movResult
+        return movResultDetail
     }
 
     override fun getTv(): LiveData<List<MovieTvEntity>> {
-        val listTvShowResult = MutableLiveData<List<MovieTvEntity>>()
+        val listTvRes = MutableLiveData<List<MovieTvEntity>>()
         CoroutineScope(Dispatchers.IO).launch {
-            remoteDataSource.getTvList(object : RemoteDataSource.LoadTvCallback{
+            remote.getTvList(object : RemoteDataSource.LoadTvCallback{
+
                 override fun responseOnAllTvReceived(tvShowResponse: List<TvResponse>) {
-                    val tvShowList = ArrayList<MovieTvEntity>()
-                    for(response in tvShowResponse){
-                        val tvShow = MovieTvEntity(
+                    val tvListArr = ArrayList<MovieTvEntity>()
+                    for (response in tvShowResponse){
+                        val tvRes = MovieTvEntity(
                             response.id,
                             response.title,
                             response.release_date,
@@ -84,21 +75,22 @@ class CatalogRepository private constructor(private val remoteDataSource: Remote
                             response.vote_average,
                             response.poster_path
                         )
-                        tvShowList.add(tvShow)
+                        tvListArr.add(tvRes)
                     }
-                    listTvShowResult.postValue(tvShowList)
+                    listTvRes.postValue(tvListArr)
                 }
             })
         }
-        return listTvShowResult
+        return listTvRes
     }
 
-    override fun getTvDetail(tvShowId: Int): LiveData<MovieTvEntity> {
-        val tvShowResult = MutableLiveData<MovieTvEntity>()
+    override fun getTvDetail(tvShowId: Int): LiveData<MovieTvEntity>
+    {
+        val tvResultDetail = MutableLiveData<MovieTvEntity>()
         CoroutineScope(Dispatchers.IO).launch {
-            remoteDataSource.getTvDetail(tvShowId, object :  RemoteDataSource.LoadTvDetailCallback {
+            remote.getTvDetail(tvShowId, object : RemoteDataSource.LoadTvDetailCallback{
                 override fun responseOnDetailTvReceived(tvShowResponse: TvResponse) {
-                    val tvShow = MovieTvEntity(
+                    val tv = MovieTvEntity(
                         tvShowResponse.id,
                         tvShowResponse.title,
                         tvShowResponse.release_date,
@@ -107,11 +99,10 @@ class CatalogRepository private constructor(private val remoteDataSource: Remote
                         tvShowResponse.vote_average,
                         tvShowResponse.poster_path
                     )
-                    tvShowResult.postValue(tvShow)
+                    tvResultDetail.postValue(tv)
                 }
             })
         }
-        return tvShowResult
+        return tvResultDetail
     }
-
 }

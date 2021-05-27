@@ -2,11 +2,10 @@ package com.ardhacodes.subs1_jetpack.ui.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.ardhacodes.subs1_jetpack.data.CatalogRepository
+import com.ardhacodes.subs1_jetpack.data.MovTvRepository
 import com.ardhacodes.subs1_jetpack.data.MovieTvEntity
-import com.ardhacodes.subs1_jetpack.utils.MoviesTvDataDummy
 
-class DetailViewModel(val mCatalogRepository: CatalogRepository) : ViewModel() {
+class DetailViewModel(val modelMovTvRepository: MovTvRepository) : ViewModel() {
 //    private lateinit var mov_id: String
 //    private lateinit var tv_id: String
 //
@@ -49,11 +48,11 @@ class DetailViewModel(val mCatalogRepository: CatalogRepository) : ViewModel() {
 
     fun getDetailMovieapis(movieId: Int): LiveData<MovieTvEntity>
     {
-        return mCatalogRepository.getMovieDetail(movieId)
+        return modelMovTvRepository.getMovieDetail(movieId)
     }
 
     fun getDetailTvapis(tvShowId: Int): LiveData<MovieTvEntity>
     {
-        return mCatalogRepository.getTvDetail(tvShowId)
+        return modelMovTvRepository.getTvDetail(tvShowId)
     }
 }

@@ -3,7 +3,7 @@ package com.ardhacodes.subs1_jetpack.ui.main
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.ardhacodes.subs1_jetpack.data.CatalogRepository
+import com.ardhacodes.subs1_jetpack.data.MovTvRepository
 import com.ardhacodes.subs1_jetpack.data.MovieTvEntity
 import com.ardhacodes.subs1_jetpack.ui.detail.DetailViewModel
 import com.ardhacodes.subs1_jetpack.ui.movie.MovieViewModel
@@ -37,7 +37,7 @@ class MainActivityTest
     var instantTask = InstantTaskExecutorRule()
 
     @Mock
-    private lateinit var catalogRepos: CatalogRepository
+    private lateinit var catalogRepos: MovTvRepository
 
     @Mock
     private lateinit var observer: Observer<List<MovieTvEntity>>

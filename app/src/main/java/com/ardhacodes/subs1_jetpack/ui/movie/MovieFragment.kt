@@ -47,24 +47,20 @@ class MovieFragment : Fragment(), CallbackMovTv {
     }
 
     override fun onItemClicked(movtvEntity: MovieTvEntity) {
-        startActivity(Intent(context, DetailMovieTvActivity::class.java)
+        startActivity(
+            Intent(context, DetailMovieTvActivity::class.java)
 //                .putExtra(DetailMovieTvActivity.EXTRA_MOV, movtvEntity.title)
                 .putExtra(DetailMovieTvActivity.EXTRA_MOV, movtvEntity.id)
                 .putExtra(DetailMovieTvActivity.EXTRA_CATEGORY, EXTRA_MOVIE)
         )
     }
 
-    fun viewModelProviderConfig()
-    {
-        val factory = ViewModelFactory.getInstance()
-        val viewmodel =ViewModelProvider(this, factory)[MovieViewModel::class.java]
-//        val movie = viewmodel.getdDataMovie()
+    fun viewModelProviderConfig() {
+        val factoryVm = ViewModelFactory.getInstance()
+        val viewmodel = ViewModelProvider(this, factoryVm)[MovieViewModel::class.java]
         val movieAdapter = MovieAdapter(this)
-//        movieAdapter.setMovies(movie)
-
         fragmentMovieBind.progressBar.visibility = View.VISIBLE
-        viewmodel.getDataMovieApi().observe(viewLifecycleOwner, {
-            movie->
+        viewmodel.getDataMovieApi().observe(viewLifecycleOwner, { movie ->
             fragmentMovieBind.progressBar.visibility = View.GONE
             movieAdapter.setMovies(movie)
             movieAdapter.notifyDataSetChanged()
@@ -75,6 +71,18 @@ class MovieFragment : Fragment(), CallbackMovTv {
             setHasFixedSize(true)
             this.adapter = movieAdapter
         }
+    }
+
+    fun progressBarAction() {
+        val factoryVm = ViewModelFactory.getInstance()
+        val viewmodel = ViewModelProvider(this, factoryVm)[MovieViewModel::class.java]
+        val movieAdapter = MovieAdapter(this)
+        fragmentMovieBind.progressBar.visibility = View.VISIBLE
+        viewmodel.getDataMovieApi().observe(viewLifecycleOwner, { movie ->
+            fragmentMovieBind.progressBar.visibility = View.GONE
+            movieAdapter.setMovies(movie)
+            movieAdapter.notifyDataSetChanged()
+        })
     }
 
 }

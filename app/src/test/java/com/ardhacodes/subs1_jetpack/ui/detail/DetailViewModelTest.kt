@@ -2,7 +2,7 @@ package com.ardhacodes.subs1_jetpack.ui.detail
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
-import com.ardhacodes.subs1_jetpack.data.CatalogRepository
+import com.ardhacodes.subs1_jetpack.data.MovTvRepository
 import com.ardhacodes.subs1_jetpack.data.MovieTvEntity
 import com.ardhacodes.subs1_jetpack.utils.MoviesTvDataDummy
 import org.junit.Assert.*
@@ -15,7 +15,6 @@ import org.junit.runner.RunWith
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
-import java.util.*
 
 @RunWith(MockitoJUnitRunner::class)
 class DetailViewModelTest
@@ -26,7 +25,7 @@ class DetailViewModelTest
     val movieId = dataMov.id
     val tvShowId = dataTv.id
     @Mock
-    private lateinit var catalogRepository: CatalogRepository
+    private lateinit var catalogRepository: MovTvRepository
 
     @Mock
     private lateinit var observer: Observer<MovieTvEntity>

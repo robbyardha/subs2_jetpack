@@ -7,20 +7,22 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ApiConfig {
     private const val baseUrl = "https://api.themoviedb.org/3/"
 
-    private val clientHttp = OkHttpClient.Builder().apply {
+    val clientHttp = OkHttpClient.Builder().apply {
 
     }.build()
 
-    private val retrofitBuild: Retrofit.Builder by lazy {
+    val retrofitBuild: Retrofit.Builder by lazy {
         Retrofit.Builder().apply {
             client(clientHttp)
             baseUrl(baseUrl)
             addConverterFactory(GsonConverterFactory.create())
         }
     }
-    val instance: ApiService by lazy {
+    val instanceApiService: ApiService by lazy {
         retrofitBuild
-                .build()
-                .create(ApiService::class.java)
+            .build()
+            .create(ApiService::class.java)
     }
+
+
 }

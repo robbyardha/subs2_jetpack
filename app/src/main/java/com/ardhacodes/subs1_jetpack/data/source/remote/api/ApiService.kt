@@ -10,29 +10,29 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
-    companion object{
+    companion object {
         const val KEY = "57d7a07963575b131d0f873f638ec911"
     }
 
     @GET("movie/popular")
-    fun getPopularMovie(
-            @Query("api_key") apiKey: String = KEY
+    public fun getPopularMovie(
+        @Query("api_key") apiKey: String = KEY
     ): Call<ForResponse<MovieResponse>>
 
     @GET("movie/{movie_id}")
-    fun getDetailMovie(
-            @Path("movie_id") movieId: Int,
-            @Query("api_key") apiKey: String = KEY
+    public fun getDetailMovie(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String = KEY
     ): Call<MovieResponse>
 
     @GET("tv/popular")
-    fun getTvPopular(
-            @Query("api_key") apiKey: String = KEY
+    public fun getTvPopular(
+        @Query("api_key") apiKey: String = KEY
     ): Call<ForResponse<TvResponse>>
 
     @GET("tv/{tv_id}")
-    fun getDetailTvShow(
-            @Path("tv_id") tvShowId: Int,
-            @Query("api_key") apiKey: String = KEY
+    public fun getDetailTvShow(
+        @Path("tv_id") tvShowId: Int,
+        @Query("api_key") apiKey: String = KEY
     ): Call<TvResponse>
 }

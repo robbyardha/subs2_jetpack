@@ -2,7 +2,7 @@ package com.ardhacodes.subs1_jetpack.data.source.remote.response
 
 import com.google.gson.annotations.SerializedName
 
-data class TvResponse (
+data class TvResponse(
     @SerializedName("id")
     var id: Int = 0,
 
@@ -24,4 +24,4 @@ data class TvResponse (
     @SerializedName("poster_path")
     var poster_path: String,
 
-)
+    )

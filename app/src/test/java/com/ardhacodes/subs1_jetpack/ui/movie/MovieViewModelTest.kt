@@ -3,12 +3,11 @@ package com.ardhacodes.subs1_jetpack.ui.movie
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.ardhacodes.subs1_jetpack.data.CatalogRepository
+import com.ardhacodes.subs1_jetpack.data.MovTvRepository
 import com.ardhacodes.subs1_jetpack.data.MovieTvEntity
 import com.ardhacodes.subs1_jetpack.utils.MoviesTvDataDummy
 import com.nhaarman.mockitokotlin2.verify
 import junit.framework.Assert
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -30,7 +29,7 @@ class MovieViewModelTest
     private lateinit var observer: Observer<List<MovieTvEntity>>
 
     @Mock
-    private lateinit var catalogRepository: CatalogRepository
+    private lateinit var catalogRepository: MovTvRepository
 
 
     @Before
