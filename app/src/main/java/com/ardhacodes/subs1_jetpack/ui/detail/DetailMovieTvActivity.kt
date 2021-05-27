@@ -89,12 +89,14 @@ class DetailMovieTvActivity : AppCompatActivity() {
 
         if(ex_category.equals(EXTRA_MOVIE, ignoreCase = true)){
             viewmodel.getDetailMovieapis(ex_id_mov_tv).observe(this,{
+//                viewmodel.getDetailMovieapis(0)
                 dataDetail(it)
             })
         }
         else if (ex_category.equals(EXTRA_TV_SHOW, ignoreCase = true)){
             viewmodel.getDetailTvapis(ex_id_mov_tv).observe(this,{
                 dataDetail(it)
+//                viewmodel.getDetailTvapis(0)
             })
         }
     }

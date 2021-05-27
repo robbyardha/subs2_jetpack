@@ -42,8 +42,8 @@ class TvFragment : Fragment(), CallbackMovTv {
     }
 
     private fun viewModelProviderConfig() {
-        val factory = ViewModelFactory.getInstance()
-        val viewmodel =ViewModelProvider(this, factory)[TvViewModel::class.java]
+        val factoryVm = ViewModelFactory.getInstance()
+        val viewmodel =ViewModelProvider(this, factoryVm)[TvViewModel::class.java]
 //        val viewmodel =ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[TvViewModel::class.java]
         val tvadaper = TvAdapter(this@TvFragment)
 //        val tv = viewmodel.getdDataTv()
