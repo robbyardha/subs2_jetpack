@@ -14,10 +14,15 @@ class MovTvRepository private constructor(private val remoteDataSource: RemoteDa
         @Volatile
         private var instance: MovTvRepository? = null
 
-        fun getInstance(remoteDataSource: RemoteDataSource): MovTvRepository =
-            instance ?: synchronized(this){
+        fun getInstance(remoteDataSource: RemoteDataSource): MovTvRepository {
+            return instance ?: synchronized(this){
                 instance ?: MovTvRepository(remoteDataSource)
             }
+        }
+//        fun getInstance(remoteDataSource: RemoteDataSource): MovTvRepository =
+//            instance ?: synchronized(this){
+//                instance ?: MovTvRepository(remoteDataSource)
+//            }
     }
 
     override fun getPopularMovies(): LiveData<List<MovieTvEntity>> {
