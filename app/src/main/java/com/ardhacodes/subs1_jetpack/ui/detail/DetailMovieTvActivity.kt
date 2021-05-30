@@ -26,7 +26,7 @@ class DetailMovieTvActivity : AppCompatActivity() {
     private lateinit var detailbinding : ActivityDetailMovieTvBinding
     private lateinit var result: MovieTvEntity
     private lateinit var viewModel: DetailViewModel
-    val path = "http://image.tmdb.org/t/p/"
+    val path = "https://image.tmdb.org/t/p/"
     val image_w185 = "w185"
     val image_w780 = "w780"
 

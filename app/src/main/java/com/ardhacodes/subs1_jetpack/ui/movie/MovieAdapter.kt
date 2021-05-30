@@ -14,7 +14,7 @@ import com.bumptech.glide.request.RequestOptions
 
 class MovieAdapter(val callback: CallbackMovTv) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     private var listMovie = ArrayList<MovieTvEntity>()
-    val path = "http://image.tmdb.org/t/p/"
+    val path = "https://image.tmdb.org/t/p/"
     val image_w185 = "w185"
     val image_w780 = "w780"
 
